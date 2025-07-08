@@ -202,26 +202,26 @@ input[type="submit"] {
 }
 
 .button-add-to-cart {
-    background-color: #8a2be2; /* Cor roxa vibrante */
+    background-color: #8a2be2;
     color: white;
-    padding: 18px 40px; /* Padding maior para um botão mais destacado */
+    padding: 18px 40px; 
     border: none;
-    border-radius: 30px; /* Borda bem arredondada */
+    border-radius: 30px;
     cursor: pointer;
-    font-size: 1.5em; /* Fonte maior */
+    font-size: 1.5em; 
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    text-decoration: none; /* Remove sublinhado se for um link */
-    display: block; /* **CRUCIAL:** Ocupa a própria linha e permite margin: auto */
-    width: fit-content; /* **CRUCIAL:** Ocupa apenas a largura do seu conteúdo */
-    margin: 30px auto 0 auto; /* **CRUCIAL:** Centraliza o bloco horizontalmente */
-    box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4); /* Sombra roxa mais proeminente */
+    text-decoration: none; 
+    display: block; 
+    width: fit-content; 
+    margin: 30px auto 0 auto; 
+    box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4); 
 }
 
 .button-add-to-cart:hover {
-    background-color: #6a1ba8; /* Roxo mais escuro no hover */
-    transform: translateY(-3px); /* Efeito de elevação maior no hover */
-    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6); /* Sombra mais intensa no hover */
+    background-color: #6a1ba8;
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6); 
 }
 
 header {
