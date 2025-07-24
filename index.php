@@ -1,4 +1,3 @@
-
 <?php
 // Area de codigo PHP
 session_start();
@@ -34,27 +33,34 @@ $ListaCopo = [
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa do Açaí</title>
     <link rel="stylesheet" href="style.css"> 
     <style>
-        
+        /* Este bloco <style> é para regras CSS específicas que você não quer no style.css
+           ou para sobrescrever algo. Se as regras abaixo já estiverem no style.css,
+           este bloco pode ser removido ou limpo para evitar duplicação. */
         .complemento-item {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
         .complemento-item label {
-            margin-left: 5px;
+            /* Esta regra específica de margin-left foi incorporada no style.css
+               para um alinhamento mais controlado. Recomendo remover esta linha aqui. */
+            margin-left: 10px; 
         }
     </style>
 </head>
  
 <body>
     <header>
-        <h1>Casa do Açai</h1>
+        <h1>
+            <img src="imagens/acaiteria_logo.png" alt="Logo da Casa do Açai" style="height: 100px;">
+        </h1>
     </header>
 
-    <form action="receba.php" method="get">
+    <form action="receba.php" method="get" class="order-form">
         <h2>Escolha o Tamanho do seu Copo de Açaí</h2>
         <label for="tamanhoCopo">Tamanho do Copo:</label>
         <br>
@@ -71,26 +77,29 @@ $ListaCopo = [
         <h2> Adicione seus Complementos Favoritos (Opcional)</h2>
         <div id="complementosList">
             <?php foreach ($listaComplementos as $c => $v) : ?>
-                <div class="complemento-item">
+                <div class="checkbox-item"> 
                     <input type="checkbox" name="complementos[]" id="complemento_<?= str_replace(' ', '_', $c) ?>" value="<?= $c."*".$v ?>">
                     <label for="complemento_<?= str_replace(' ', '_', $c) ?>">
-                        <?= $c." | R$ ".number_format($v, 2, ',', '.') ?>
-                    </label>
+                        <span><?= $c ?></span> <span class="price">R$ <?= number_format($v, 2, ',', '.') ?></span> </label>
                 </div>
             <?php endforeach; ?>
         </div>
         <br>
-        <label for="qtdAcaíBase">Quantos açaís completos com essas opções?</label>
-        <input type="number" name="qtdAcaíBase" id="qtdAcaíBase" step="1" min="1" max="999" value="1" required>
+        
+        <div class="quantity-section">
+            <label for="qtdAcaíBase">Quantos açaís completos com essas opções?</label>
+            <input type="number" name="qtdAcaíBase" id="qtdAcaíBase" step="1" min="1" max="999" value="1" required>
+        </div>
 
         <br><br>
-        <input type="submit" value="Adicionar ao carrinho">
+        
+        <button type="submit" class="button-add-to-cart">Adicionar ao carrinho</button>
 
         <?php
         
         if (isset($_SESSION["carrinho"]) && count($_SESSION["carrinho"]) > 0) :
         ?>
-            <a href="receba.php"> Ver itens do carrinho </a>
+            <a href="receba.php" class="view-cart-link"> Ver itens do carrinho </a>
         <?php endif; ?>
     </form>
 </body>
