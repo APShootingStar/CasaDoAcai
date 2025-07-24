@@ -1,293 +1,271 @@
+/* Variáveis para cores para facilitar a manutenção */
+:root {
+    --primary-purple-header: #6A1B9A; /* Roxo mais forte do header e botão */
+    --accent-purple-title: #4A0074; /* Roxo do main-title (se usado) */
+    --light-purple-border: #E0BBE4; /* Roxo da borda dos h2 */
+    --button-hover-purple: #5A1780; /* Um pouco mais escuro para o hover do botão */
+    --background-light-gray: #f0f0f5; /* Fundo geral da página */
+    --card-background-white: #ffffff; /* Fundo dos cards/formulário */
+    --text-dark: #333; /* Cor de texto mais escura */
+    --text-medium: #555; /* Cor de texto média */
+}
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #f0f0f5;
+    background-color: var(--background-light-gray); /* Fundo cinza claro */
+    background-image: url(https://cdn.pixabay.com/photo/2021/09/08/20/07/acai-bowl-6607821_1280.jpg);
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: column; /* Organiza header e form em coluna */
+    align-items: center; /* Centraliza horizontalmente os elementos filhos do body (header, form) */
     min-height: 100vh;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.header-bar {
-    width: 100%;
-    background-color: #6A1B9A; /* Roxo mais forte */
-    color: white;
-    padding: 15px 0;
+header { /* O seu cabeçalho no HTML é a tag <header> */
+    background-color: var(--primary-purple-header); /* Cor roxa do header */
+    width: 100%; /* Garante que o header ocupe toda a largura */
     text-align: center;
-    font-size: 2.5em;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    color: white; /* Cor do texto no header (se houver) */
+    padding: 15px 0; /* Espaçamento interno */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
 }
 
-.header-bar img {
-    max-height: 50px;
-    vertical-align: middle;
+header h1 {
+    margin: 0; /* Remove margem padrão do h1 para que a logo fique alinhada */
+    padding: 0;
 }
 
-#container {
-    background-color: #ffffff;
+header img {
+    max-height: 100px; /* Sua imagem de logo tem 100px de altura */
+    height: auto;
+    vertical-align: middle; /* Alinha a imagem verticalmente com outros elementos, se houver */
+}
+
+/* O formulário (`<form class="order-form">`) atua como o container principal do conteúdo */
+.order-form {
+    background-color: var(--card-background-white); /* Fundo branco para o formulário/card */
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     max-width: 600px;
-    width: 100%;
+    width: 90%; /* Ajuste a largura para ser responsiva, por exemplo 90% */
     box-sizing: border-box;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 30px; /* Espaço do header */
+    margin-bottom: 30px; /* Espaço para o final da página */
+    
+    display: flex; /* Transforma o form em um container flexível */
+    flex-direction: column; /* Organiza os elementos dentro do form em coluna */
+    align-items: center; /* Centraliza horizontalmente os elementos dentro do form */
 }
 
-.main-title {
-    color: #4A0074;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.5em;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
+/* Títulos das seções dentro do formulário */
 h2 {
-    color: #6A1B9A;
+    color: var(--primary-purple-header);
     margin-top: 30px;
     margin-bottom: 20px;
     font-size: 1.6em;
-    border-bottom: 2px solid #E0BBE4;
+    border-bottom: 2px solid var(--light-purple-border);
     padding-bottom: 10px;
+    width: 100%; /* Garante que o h2 e sua borda ocupem toda a largura do formulário */
+    text-align: left; /* Alinha o texto do h2 à esquerda */
+    box-sizing: border-box; /* Inclui padding na largura */
+}
+
+label { /* Estilo para os labels gerais (como "Tamanho do Copo:") */
+    display: block; /* Cada label em sua própria linha */
+    margin-bottom: 8px;
+    color: var(--text-medium);
+    font-weight: 500;
+    width: 100%; /* Ocupa a largura total para alinhamento */
+    text-align: left; /* Alinha o texto do label à esquerda */
+    box-sizing: border-box;
 }
 
 select {
-    width: 100%;
+    width: 100%; /* Ocupa a largura total do formulário */
     padding: 12px 15px;
     margin-bottom: 25px;
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1.1em;
-    color: #333;
+    color: var(--text-dark);
     background-color: #f9f9f9;
-    appearance: none;
+    appearance: none; /* Remove a seta padrão do select */
     -webkit-appearance: none;
     -moz-appearance: none;
+    /* Imagem de seta customizada */
     background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.9L146.2%20208.5%205.5%2069.9z%22%2F%3E%3C%2Fsvg%3E');
     background-repeat: no-repeat;
     background-position: right 15px top 50%;
     background-size: 0.8em auto;
+    box-sizing: border-box;
 }
 
-.checkbox-container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 15px;
-    cursor: pointer;
+/* Estilo para cada item de complemento (checkbox, nome e preço) */
+.checkbox-item {
+    display: flex; /* Transforma em flex para alinhar checkbox, nome e preço */
+    align-items: center; /* Alinha verticalmente os itens no centro */
+    justify-content: space-between; /* Empurra o preço para a direita, nome para a esquerda */
+    width: 100%; /* Ocupa toda a largura do formulário */
+    margin-bottom: 10px;
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin-right: 15px; /* Espaço entre o checkbox e o texto/preço */
+    transform: scale(1.2); /* Aumenta um pouco o tamanho do checkbox para clique fácil */
+    flex-shrink: 0; /* Impede que o checkbox encolha */
+}
+
+.checkbox-item label { /* O label que envolve o nome e o preço do complemento */
+    margin: 0; /* Remove margens padrão que poderiam desalinhá-lo */
+    display: flex; /* Permite controlar o espaçamento e alinhamento do nome e preço */
+    justify-content: space-between; /* Empurra o nome para a esquerda e o preço para a direita dentro do label */
+    flex-grow: 1; /* Permite que o label ocupe todo o espaço disponível */
+    color: var(--text-dark);
     font-size: 1.1em;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    color: #333;
+    align-items: center; /* Alinha o nome e o preço verticalmente dentro do label */
 }
 
-.checkbox-container input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.checkbox-container:hover input ~ .checkmark {
-    background-color: #ccc;
-}
-
-.checkbox-container input:checked ~ .checkmark {
-    background-color: #6A1B9A;
-    border-color: #6A1B9A;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.checkbox-container input:checked ~ .checkmark:after {
-    display: block;
-}
-
-.checkbox-container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-input[type="number"] {
-    width: 80px;
-    padding: 10px 15px;
-    margin-left: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1.1em;
-    color: #333;
-    text-align: center;
-}
-
-input[type="submit"] {
-    padding: 10px;
-    background-color: #8a2be2;
-    color: #eee;
-    border-radius: 10px;
-}
-
-.button-gold {
-    background-color: #FFD700;
-    color: #333;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.2em;
+.checkbox-item label span.price { /* Estilo específico para o preço do complemento */
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
-    margin-top: 30px;
-    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+    color: var(--primary-purple-header);
+    white-space: nowrap; /* Impede que o preço quebre a linha */
+    margin-left: 15px; /* Espaçamento entre o nome do complemento e o preço */
+    flex-shrink: 0; /* Impede que o preço encolha */
 }
 
-.button-gold:hover {
-    background-color: #FFC400;
-    transform: translateY(-2px);
-}
-
-.button-green {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
-    margin-top: 30px;
-    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
-}
-
-.button-green:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-}
-
-.button-add-to-cart {
-    background-color: #8a2be2;
-    color: white;
-    padding: 18px 40px; 
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1.5em; 
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    text-decoration: none; 
-    display: block; 
-    width: fit-content; 
-    margin: 30px auto 0 auto; 
-    box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4); 
-}
-
-.button-add-to-cart:hover {
-    background-color: #6a1ba8;
-    transform: translateY(-3px); 
-    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6); 
-}
-
-header {
-    background-color: #4A0074;
-    width: 100%;
-    text-align: center;
-    color: #eee;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: 500;
-}
-
+/* Seção de Quantidade (Label + Input Number) */
 .quantity-section {
     display: flex;
-    align-items: center;
+    align-items: center; /* Alinha o label e o input verticalmente */
+    justify-content: flex-start; /* Alinha o conteúdo da seção à esquerda dentro do formulário */
+    width: 100%; /* Ocupa a largura total do formulário */
     margin-top: 25px;
     margin-bottom: 25px;
     font-size: 1.1em;
-    color: #333;
+    color: var(--text-dark);
+    box-sizing: border-box;
 }
+
+.quantity-section label {
+    margin-bottom: 0; /* Remove margem inferior padrão do label aqui */
+    margin-right: 15px; /* Espaçamento entre o label e o input number */
+    flex-shrink: 0; /* Impede que o label encolha */
+    width: auto; /* Deixa o label ter sua largura natural */
+    text-align: left; /* Garante que o texto do label esteja alinhado à esquerda */
+}
+
+input[type="number"] {
+    width: 80px; /* Largura fixa para o input de quantidade */
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1.1em;
+    color: var(--text-dark);
+    text-align: center;
+    box-sizing: border-box;
+    flex-shrink: 0; /* Impede que o input encolha */
+}
+
+/* BOTÃO ROXO ARREDONDADO (NÃO TÃO REDONDO, MODERNO) */
+.button-add-to-cart {
+    background-color: var(--primary-purple-header); /* Mesma cor roxa do header */
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: none;
+    /* Alterado: Definimos uma largura e altura que não são iguais para que não seja um círculo perfeito */
+    width: 250px; /* Largura um pouco maior */
+    height: 70px; /* Altura menor para formar um "comprimido" */
+    border-radius: 35px; /* Metade da altura para um arredondamento suave, ou experimente um valor em px como 10px, 20px */
+    
+    display: flex; /* Para centralizar o texto dentro do botão */
+    align-items: center; /* Alinha verticalmente o texto */
+    justify-content: center; /* Alinha horizontalmente o texto */
+    
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-decoration: none; /* Remove sublinhado se for usado em um link (a) */
+    
+    margin-top: 40px; /* Espaço superior para separar do conteúdo acima */
+    margin-bottom: 30px; /* Espaço inferior */
+    
+    /* Centralizado automaticamente pelo `align-items: center` do `form.order-form` (seu pai) */
+    
+    box-shadow: 0 8px 25px rgba(106, 27, 154, 0.4); /* Sombra roxa com opacidade */
+}
+
+.button-add-to-cart:hover {
+    background-color: var(--button-hover-purple); /* Um tom um pouco mais escuro ao passar o mouse */
+    transform: translateY(-5px); /* Efeito de elevação mais pronunciado no hover */
+    box-shadow: 0 12px 35px rgba(106, 27, 154, 0.6); /* Sombra mais forte no hover */
+}
+
+/* Estilo para o link "Ver itens do carrinho" */
+.view-cart-link {
+    display: block; /* Transforma o link em um bloco para ocupar sua própria linha */
+    text-align: center; /* Centraliza o texto do link */
+    margin-top: 20px; /* Espaço acima do link */
+    color: var(--primary-purple-header);
+    text-decoration: none; /* Remove sublinhado padrão */
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.view-cart-link:hover {
+    color: var(--button-hover-purple);
+    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}
+
 
 /* --- Mídia Queries para responsividade --- */
 @media (max-width: 768px) {
-    #container {
+    .order-form {
         padding: 25px;
         margin-top: 20px;
         margin-bottom: 20px;
-    }
-
-    .main-title {
-        font-size: 2em;
+        width: 95%; /* Ajusta para preencher mais em telas médias */
     }
 
     h2 {
         font-size: 1.4em;
     }
 
-    select, input[type="number"] {
-        padding: 10px;
+    select, input[type="number"], .checkbox-item label {
         font-size: 1em;
     }
 
     .button-add-to-cart {
-        padding: 15px 30px;
-        font-size: 1.3em;
-        width: 100%; /* Ocupa 100% da largura em telas menores */
-        margin-left: 0; /* Remove margin auto em mobile para preencher */
-        margin-right: 0;
+        width: 200px; /* Reduz a largura em telas menores */
+        height: 60px; /* Reduz a altura */
+        font-size: 1.2em; /* Reduz o tamanho da fonte */
+        border-radius: 30px; /* Ajusta o arredondamento */
+        margin-top: 30px; 
+        margin-bottom: 30px; 
     }
 }
 
 @media (max-width: 480px) {
-    .header-bar {
-        font-size: 1.8em;
-        padding: 10px 0;
+    header img {
+        max-height: 80px; /* Reduz o tamanho da logo em telas muito pequenas */
     }
 
-    #container {
+    .order-form {
         padding: 20px;
+        width: 98%; /* Ajusta para preencher ainda mais em telas muito pequenas */
     }
 
-    .main-title {
-        font-size: 1.8em;
+    h2 {
+        font-size: 1.3em;
+    }
+    
+    .button-add-to-cart {
+        width: 180px;
+        height: 55px;
+        font-size: 1em;
+        border-radius: 27px;
     }
 }
