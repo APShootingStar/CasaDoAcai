@@ -2,6 +2,9 @@ Ainda não criamos o banco de dados para o administrador, então fizemos um logi
 Temos que ligar os complementos do index com a area de adm, ainda não sabemos como, mas a tela funciona para cadastraqr novos
 Aparentemente precisamos criar um arquivo JSON, mas qualquer coisa a maior parte já está feita
 
+(estou arrumando um erro no carrinho, em breve trago atualizações)
+
+
 Usuário e senha:
 
 admin
