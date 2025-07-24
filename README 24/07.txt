@@ -1,0 +1,7 @@
+Caso você esteja vendo essa mensagem, saiba que o banco de dados ainda não foi totalmente implementado.
+
+As páginas são navegáveis e funcionais, e os formulários possuem validação.
+
+Caso ocorra algum erro da página não carregar, sugiro limpar o cache do navegador.
+
+24/07 
