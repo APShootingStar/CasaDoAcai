@@ -39,15 +39,12 @@ $ListaCopo = [
     <title>Casa do Açaí</title>
     <link rel="stylesheet" href="style.css"> 
     <style>
-        /* Este bloco <style> é para regras CSS específicas que você não quer no style.css
-           ou para sobrescrever algo. Se as regras abaixo já estiverem no style.css,
-           este bloco pode ser removido ou limpo para evitar duplicação. */
+        
         .complemento-item {
             margin-bottom: 10px;
         }
         .complemento-item label {
-            /* Esta regra específica de margin-left foi incorporada no style.css
-               para um alinhamento mais controlado. Recomendo remover esta linha aqui. */
+          
             margin-left: 10px; 
         }
     </style>
@@ -104,3 +101,4 @@ $ListaCopo = [
     </form>
 </body>
 </html>
+
