@@ -1,7 +1,5 @@
 <?php
 
-// Constantes de conexão com o banco de dados
-// Mantenha as suas configurações, se estiverem diferentes
 define("MYSQL_SERVER", "localhost");
 define("MYSQL_PORT", "3306");
 define("MYSQL_DATABASE", "casa_do_acai");
@@ -12,8 +10,6 @@ define("MYSQL_PASS", "");
 class Database {
     
    private $connection;
-
-   // Método privado para conectar ao banco de dados
    private function connect()
    {
        try {
@@ -27,8 +23,6 @@ class Database {
            die("Erro de conexão com o banco de dados: " . $e->getMessage());
        }
    }
-
-   // Método privado para desconectar
    private function disconnect()
    {
        $this->connection = null;
@@ -41,10 +35,9 @@ class Database {
            $stmt->execute($parameters);
            return $stmt;
        } catch (PDOException $e) {
-           // Lança a exceção para que o código que chamou este método possa tratá-la
            throw new PDOException("Erro na instrução SQL: " . $e->getMessage(), (int)$e->getCode());
        } finally {
-           // Garante que a desconexão ocorra sempre, mesmo em caso de erro
+           
            $this->disconnect();
        }
    }
@@ -98,3 +91,4 @@ class Database {
        return true;
    }
 }
+
