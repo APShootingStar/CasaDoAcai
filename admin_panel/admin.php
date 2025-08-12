@@ -1,6 +1,5 @@
 <?php
-session_start(); 
-
+session_start();
 
 // VERIFICAÇÃO DE SEGURANÇA: Se o admin NÃO estiver logado, manda ele para a página de login
 if (!isset($_SESSION['admin_logado']) || $_SESSION['admin_logado'] !== true) {
@@ -12,10 +11,40 @@ if (!isset($_SESSION['produtos'])) {
     $_SESSION['produtos'] = [];
 }
 
-// Variáveis para mensagens 
+// SIMULAÇÃO DE DADOS DE PEDIDOS
+if (!isset($_SESSION['pedidos'])) {
+    $_SESSION['pedidos'] = [
+        [
+            'id_pedido' => uniqid(),
+            'nome_cliente' => 'João Silva',
+            'valor_total' => 45.50,
+            'endereco' => 'Rua Santo Antônio, 99 - Maringá',
+            'forma_pagamento' => 'Cartão de Crédito',
+            'detalhes' => 'Açaí Tropical (300ml) x2, Açaí Personalizado (500ml) com Leite Ninho e Nutella'
+        ],
+        [
+            'id_pedido' => uniqid(),
+            'nome_cliente' => 'Pedro Henrique',
+            'valor_total' => 25.00,
+            'endereco' => 'Avenida Presidente Getúlio Vargas 2500 - Banedeirantes',
+            'forma_pagamento' => 'Pix',
+            'detalhes' => 'Açaí Doce Tentação (500ml) x1'
+        ],
+        [
+            'id_pedido' => uniqid(),
+            'nome_cliente' => 'Nicolas',
+            'valor_total' => 30.00,
+            'endereco' => 'Avenida Presidente Getúlio Vargas, 2888 - Bela Vista',
+            'forma_pagamento' => 'Dinheiro',
+            'detalhes' => 'Açaí Personalizado (300ml) com Banana e Granola'
+        ]
+    ];
+}
+
+// Variáveis para mensagens
 $mensagem_sucesso = "";
 $mensagem_erro = "";
-$produto_para_editar = null; 
+$produto_para_editar = null;
 $edit_index = -1;
 
 
@@ -24,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $descricao = trim($_POST['descricao']);
     $preco = floatval(str_replace(',', '.', $_POST['preco']));
     $tipo = trim($_POST['tipo']);
-    $id_produto_ou_indice = isset($_POST['id_produto']) ? $_POST['id_produto'] : ''; 
+    $id_produto_ou_indice = isset($_POST['id_produto']) ? $_POST['id_produto'] : '';
 
     if (empty($nome) || empty($preco) || empty($tipo)) {
         $mensagem_erro = "Nome, Preço e Tipo são campos obrigatórios.";
@@ -32,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mensagem_erro = "O preço deve ser um valor positivo.";
     } else {
         $novo_produto = [
-            'id' => uniqid(), // Gera um ID únic para cada produto na sessão
+            'id' => uniqid(), // Gera um ID único para cada produto na sessão
             'nome' => $nome,
             'descricao' => $descricao,
             'preco' => $preco,
@@ -40,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         if ($id_produto_ou_indice !== '') { // Se tem ID, logo edita o produto
-            
+
             foreach ($_SESSION['produtos'] as $key => $prod) {
                 if ($prod['id'] == $id_produto_ou_indice) {
                     $_SESSION['produtos'][$key] = $novo_produto; // Substitui o produto existente
@@ -48,11 +77,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     break;
                 }
             }
-            if (!$mensagem_sucesso) { 
+            if (!$mensagem_sucesso) {
                  $mensagem_erro = "Erro ao atualizar produto: ID não encontrado.";
             }
         } else { // Se não tem ID, adiciona
-            $_SESSION['produtos'][] = $novo_produto; 
+            $_SESSION['produtos'][] = $novo_produto;
             $mensagem_sucesso = "Produto adicionado com sucesso!";
         }
     }
@@ -64,7 +93,7 @@ if (isset($_GET['acao']) && $_GET['acao'] == 'editar' && isset($_GET['id'])) {
     foreach ($_SESSION['produtos'] as $key => $prod) {
         if ($prod['id'] == $id_para_editar) {
             $produto_para_editar = $prod;
-            $edit_index = $key; 
+            $edit_index = $key;
             break;
         }
     }
@@ -86,11 +115,13 @@ if (isset($_SESSION['mensagem_erro'])) {
 // Ordena os produtos para exibição
 usort($_SESSION['produtos'], function($a, $b) {
     if ($a['tipo'] == $b['tipo']) {
-        return strcmp($a['nome'], $b['nome']); 
+        return strcmp($a['nome'], $b['nome']);
     }
-    return strcmp($a['tipo'], $b['tipo']); 
+    return strcmp($a['tipo'], $b['tipo']);
 });
 $produtos = $_SESSION['produtos'];
+
+$pedidos = $_SESSION['pedidos'] ?? []; // Pega os pedidos da sessão
 
 ?>
 <!DOCTYPE html>
@@ -202,7 +233,38 @@ $produtos = $_SESSION['produtos'];
                 </tbody>
             </table>
         <?php endif; ?>
-    </div>
+
+        <hr style="margin-top: 40px; margin-bottom: 20px;">
+        <h2>Pedidos Recebidos (Demonstração)</h2>
+        <?php if (empty($pedidos)): ?>
+            <p>Nenhum pedido recebido ainda.</p>
+        <?php else: ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Pedido</th>
+                        <th>Cliente</th>
+                        <th>Valor Total</th>
+                        <th>Endereço de Entrega</th>
+                        <th>Forma de Pagamento</th>
+                        <th>Detalhes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($pedidos as $pedido): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($pedido['id_pedido']) ?></td>
+                            <td><?= htmlspecialchars($pedido['nome_cliente']) ?></td>
+                            <td>R$ <?= number_format($pedido['valor_total'], 2, ',', '.') ?></td>
+                            <td><?= htmlspecialchars($pedido['endereco']) ?></td>
+                            <td><?= htmlspecialchars($pedido['forma_pagamento']) ?></td>
+                            <td><?= htmlspecialchars($pedido['detalhes']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+        </div>
 
     <script>
         function confirmarDelecao(id, nome) {
