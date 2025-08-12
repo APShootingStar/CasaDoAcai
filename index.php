@@ -126,7 +126,7 @@ $produtosFixos = [
             <a href="logout.php" class="header-btn">Sair</a>
         <?php elseif (isset($_SESSION['admin_logado'])): ?>
             <span class="welcome-message">Olá, Administrador!</span>
-            <a href="admin.php" class="header-btn">Painel Admin</a>
+            <a href="admin_panel/admin.php" class="header-btn">Painel Admin</a>
             <a href="logout.php" class="header-btn">Sair</a>
         <?php endif; ?>
     </div>
@@ -208,3 +208,4 @@ $produtosFixos = [
 
 </body>
 </html>
+
