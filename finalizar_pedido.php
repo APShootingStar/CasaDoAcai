@@ -15,6 +15,7 @@ foreach ($_SESSION["carrinho"] as $item) {
 $etapa = 'pagamento';
 $mensagem_sucesso = '';
 $nome_cliente = '';
+$endereco_cliente = ''; 
 $forma_pagamento = '';
 $pix_copia_cola = 'chave-pix-ficticia-exemplo@email.com';
 $qr_code_url = 'https://i.pinimg.com/736x/05/b6/eb/05b6eb105c4cb179db87bffbdcbf6617.jpg';
@@ -22,10 +23,27 @@ $qr_code_url = 'https://i.pinimg.com/736x/05/b6/eb/05b6eb105c4cb179db87bffbdcbf6
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Processa o formulário de pagamento
     $nome_cliente = htmlspecialchars(trim($_POST['nome_cliente']));
+    $endereco_cliente = htmlspecialchars(trim($_POST['endereco_cliente'])); 
     $forma_pagamento = htmlspecialchars(trim($_POST['forma_pagamento']));
-    
+
     // Mensagem de sucesso
     $mensagem_sucesso = "Seu pedido foi finalizado com sucesso, " . $nome_cliente . "! O total é R$ " . number_format($total_pedido, 2, ',', '.') . ".";
+    
+    if (!isset($_SESSION['pedidos'])) {
+        $_SESSION['pedidos'] = [];
+    }
+
+    // Cria um array com os detalhes do pedido e adiciona na sessão
+    $_SESSION['pedidos'][] = [
+        'id_pedido' => uniqid(),
+        'nome_cliente' => $nome_cliente,
+        'valor_total' => $total_pedido,
+        'endereco' => $endereco_cliente,
+        'forma_pagamento' => $forma_pagamento,
+        'detalhes' => implode(', ', array_map(function($item) {
+            return $item['produto'] . ' (' . $item['quant'] . ')';
+        }, $_SESSION['carrinho']))
+    ];
     
     // Limpa o carrinho após a finalização
     unset($_SESSION["carrinho"]);
@@ -42,6 +60,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Finalizar Pedido</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Estilos para a caixa branca */
+        .payment-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .payment-box h2, .payment-box h3 {
+            color: var(--primary-purple-header);
+            text-align: center;
+        }
+        .payment-box table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        .payment-box th, .payment-box td {
+            border-bottom: 1px solid #ddd;
+            padding: 8px 0;
+            text-align: left;
+        }
+        .payment-box th:last-child, .payment-box td:last-child {
+            text-align: right;
+        }
+        .payment-box label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+        .payment-box input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .payment-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .payment-options label {
+            font-weight: normal;
+        }
+        .btn-confirm {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--primary-purple-header, #6A1B9A);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-confirm:hover {
+            background-color: var(--button-hover-purple, #5A1582);
+        }
         .container {
             max-width: 600px;
             margin: 50px auto;
@@ -51,35 +133,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             background-color: var(--card-background-white);
         }
-        h1, h2 {
-            color: var(--primary-purple-header);
-        }
         .success {
             color: #4CAF50;
             font-size: 1.2em;
-        }
-        .error {
-            color: #f44336;
-            font-size: 1.2em;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: var(--primary-purple-header);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: background-color 0.3s ease;
-        }
-        .btn:hover {
-            background-color: var(--button-hover-purple);
-        }
-        .payment-options {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
         }
         .pix-info {
             margin-top: 30px;
@@ -115,66 +171,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
 
         <?php if ($etapa == 'pagamento'): ?>
-            <h2>Resumo do Pedido</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Quant</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($_SESSION["carrinho"] as $item): ?>
+            <div class="payment-box">
+                <h2>Resumo do Pedido</h2>
+                <table>
+                    <thead>
                         <tr>
-                            <td><?= htmlspecialchars($item['produto']) ?></td>
-                            <td><?= $item['quant'] ?></td>
-                            <td>R$ <?= number_format($item['subtotal'], 2, ',', '.') ?></td>
+                            <th>Produto</th>
+                            <th>Quant</th>
+                            <th>Subtotal</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            <h3>Total: R$ <?= number_format($total_pedido, 2, ',', '.') ?></h3>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($_SESSION["carrinho"] as $item): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($item['produto']) ?></td>
+                                <td><?= $item['quant'] ?></td>
+                                <td>R$ <?= number_format($item['subtotal'], 2, ',', '.') ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <h3>Total: R$ <?= number_format($total_pedido, 2, ',', '.') ?></h3>
 
-            <form action="finalizar_pedido.php" method="post">
-                <label for="nome_cliente">Seu Nome:</label>
-                <input type="text" name="nome_cliente" id="nome_cliente" required>
-                <br><br>
+                <form action="finalizar_pedido.php" method="post">
+                    <label for="nome_cliente">Seu Nome:</label>
+                    <input type="text" name="nome_cliente" id="nome_cliente" required>
 
-                <label>Forma de Pagamento:</label>
-                <div class="payment-options">
-                    <label>
-                        <input type="radio" name="forma_pagamento" value="Pix" required> Pix
-                    </label>
-                    <label>
-                        <input type="radio" name="forma_pagamento" value="Dinheiro"> Dinheiro
-                    </label>
-                    <label>
-                        <input type="radio" name="forma_pagamento" value="Cartão"> Cartão
-                    </label>
-                </div>
-                <button type="submit" class="btn">Confirmar Pagamento</button>
-            </form>
+                    <label for="endereco_cliente">Seu Endereço:</label>
+                    <input type="text" name="endereco_cliente" id="endereco_cliente" required>
+
+                    <label>Forma de Pagamento:</label>
+                    <div class="payment-options">
+                        <label>
+                            <input type="radio" name="forma_pagamento" value="Pix" required> Pix
+                        </label>
+                        <label>
+                            <input type="radio" name="forma_pagamento" value="Dinheiro"> Dinheiro
+                        </label>
+                        <label>
+                            <input type="radio" name="forma_pagamento" value="Cartão"> Cartão
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-confirm">Confirmar Pagamento</button>
+                </form>
+            </div>
 
         <?php elseif ($etapa == 'confirmacao'): ?>
-            <h2>Pedido Finalizado!</h2>
-            <p class="success"><?= htmlspecialchars($mensagem_sucesso) ?></p>
-
-            <?php if ($forma_pagamento == 'Pix'): ?>
-                <div class="pix-info">
-                    <h3>Pagamento via Pix</h3>
-                    <p>Por favor, faça a leitura do QR Code ou utilize a chave abaixo:</p>
-                    <img src="<?= $qr_code_url ?>" alt="QR Code Pix" width="200" height="200">
-                    <p>Chave Copia e Cola:</p>
-                    <div class="pix-key-box" onclick="copiarChave()">
-                        <span id="pix-key-text"><?= htmlspecialchars($pix_copia_cola) ?></span>
-                        <button type="button" class="copy-button" id="copy-btn" title="Copiar chave">📄</button>
+            <div class="payment-box">
+                <h2>Pedido Finalizado!</h2>
+                <p class="success"><?= htmlspecialchars($mensagem_sucesso) ?></p>
+                <p>Seu pedido será entregue em: <strong><?= htmlspecialchars($endereco_cliente) ?></strong></p>
+                <?php if ($forma_pagamento == 'Pix'): ?>
+                    <div class="pix-info">
+                        <h3>Pagamento via Pix</h3>
+                        <p>Por favor, faça a leitura do QR Code ou utilize a chave abaixo:</p>
+                        <img src="<?= $qr_code_url ?>" alt="QR Code Pix" width="200" height="200">
+                        <p>Chave Copia e Cola:</p>
+                        <div class="pix-key-box" onclick="copiarChave()">
+                            <span id="pix-key-text"><?= htmlspecialchars($pix_copia_cola) ?></span>
+                            <button type="button" class="copy-button" id="copy-btn" title="Copiar chave">📄</button>
+                        </div>
+                        <p id="copy-message" style="color: #4CAF50; display:none;">Chave copiada!</p>
                     </div>
-                    <p id="copy-message" style="color: #4CAF50; display:none;">Chave copiada!</p>
-                </div>
-            <?php endif; ?>
-
-            <a href="index.php" class="btn">Fazer novo pedido</a>
+                <?php endif; ?>
+                <a href="index.php" class="btn-confirm">Fazer novo pedido</a>
+            </div>
         <?php endif; ?>
 
     </div>
