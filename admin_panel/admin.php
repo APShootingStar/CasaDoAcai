@@ -11,36 +11,6 @@ if (!isset($_SESSION['produtos'])) {
     $_SESSION['produtos'] = [];
 }
 
-// SIMULAÇÃO DE DADOS DE PEDIDOS
-if (!isset($_SESSION['pedidos'])) {
-    $_SESSION['pedidos'] = [
-        [
-            'id_pedido' => uniqid(),
-            'nome_cliente' => 'João Silva',
-            'valor_total' => 45.50,
-            'endereco' => 'Rua Santo Antônio, 99 - Maringá',
-            'forma_pagamento' => 'Cartão de Crédito',
-            'detalhes' => 'Açaí Tropical (300ml) x2, Açaí Personalizado (500ml) com Leite Ninho e Nutella'
-        ],
-        [
-            'id_pedido' => uniqid(),
-            'nome_cliente' => 'Pedro Henrique',
-            'valor_total' => 25.00,
-            'endereco' => 'Avenida Presidente Getúlio Vargas 2500 - Banedeirantes',
-            'forma_pagamento' => 'Pix',
-            'detalhes' => 'Açaí Doce Tentação (500ml) x1'
-        ],
-        [
-            'id_pedido' => uniqid(),
-            'nome_cliente' => 'Nicolas',
-            'valor_total' => 30.00,
-            'endereco' => 'Avenida Presidente Getúlio Vargas, 2888 - Bela Vista',
-            'forma_pagamento' => 'Dinheiro',
-            'detalhes' => 'Açaí Personalizado (300ml) com Banana e Granola'
-        ]
-    ];
-}
-
 // Variáveis para mensagens
 $mensagem_sucesso = "";
 $mensagem_erro = "";
@@ -121,7 +91,8 @@ usort($_SESSION['produtos'], function($a, $b) {
 });
 $produtos = $_SESSION['produtos'];
 
-$pedidos = $_SESSION['pedidos'] ?? []; // Pega os pedidos da sessão
+// Pega os pedidos da sessão 
+$pedidos = $_SESSION['pedidos'] ?? [];
 
 ?>
 <!DOCTYPE html>
@@ -235,7 +206,7 @@ $pedidos = $_SESSION['pedidos'] ?? []; // Pega os pedidos da sessão
         <?php endif; ?>
 
         <hr style="margin-top: 40px; margin-bottom: 20px;">
-        <h2>Pedidos Recebidos (Demonstração)</h2>
+        <h2>Pedidos Recebidos</h2>
         <?php if (empty($pedidos)): ?>
             <p>Nenhum pedido recebido ainda.</p>
         <?php else: ?>
@@ -264,7 +235,8 @@ $pedidos = $_SESSION['pedidos'] ?? []; // Pega os pedidos da sessão
                 </tbody>
             </table>
         <?php endif; ?>
-        </div>
+
+    </div>
 
     <script>
         function confirmarDelecao(id, nome) {
