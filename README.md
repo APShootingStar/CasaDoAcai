@@ -1,4 +1,4 @@
-🍧 Cardápio Digital - Casa do Açaí
+# 🍧 Cardápio Digital - Casa do Açaí
 Este projeto é uma solução de cardápio digital desenvolvida especificamente para açaiterias, focada na experiência do usuário e na facilidade de gestão para o administrador.
 
 🚀 Sobre o Projeto
@@ -8,7 +8,7 @@ Gerenciamento de Produtos: Adicionar, editar ou remover itens do cardápio com f
 
 Acompanhamento de Pedidos: Visualização em tempo real das solicitações feitas pelos clientes.
 
-🛠 Tecnologias Utilizadas
+# 🛠 Tecnologias Utilizadas
 O projeto foi construído utilizando tecnologias essenciais para o desenvolvimento web dinâmico:
 
 Linguagem: PHP
@@ -19,17 +19,17 @@ Frontend: HTML5, CSS3 e JavaScript
 
 Ambiente de Desenvolvimento: XAMPP (Apache + MySQL)
 
-![Tela do Cardápio](asset/prints-proj/home-page.PNG)
-![Tela do Cardápio](asset/prints-proj/home-page2.PNG)
-![Tela do Cardápio](asset/prints-proj/home-page3.PNG)
-![Tela de Login](asset/prints-proj/login-page.PNG)
-![Tela de Pagamento](asset/prints-proj/pagamento.PNG)
-![Tela do Pedido confirmado](asset/prints-proj/pedido.PNG)
-![Tela do Carrinho](asset/prints-proj/carrinho.PNG)
-![Painel Administrativo](asset/prints-proj/area-adm.PNG)
+![Tela do Cardápio](asset/prints-proj/home-page.png)
+![Tela do Cardápio](asset/prints-proj/home-page2.png)
+![Tela do Cardápio](asset/prints-proj/home-page3.png)
+![Tela de Login](asset/prints-proj/login-page.png)
+![Tela de Pagamento](asset/prints-proj/pagamento.png)
+![Tela do Pedido confirmado](asset/prints-proj/pedido.png)
+![Tela do Carrinho](asset/prints-proj/carrinho.png)
+![Painel Administrativo](asset/prints-proj/area-adm.png)
 
 
-💻 Como Rodar este Projeto
+# 💻 Como Rodar este Projeto
 Para executar este projeto localmente, siga estes passos:
 
 Pré-requisitos: Tenha o XAMPP instalado em sua máquina.
@@ -49,7 +49,7 @@ Acesse o phpmyadmin e importe o arquivo .sql disponível na pasta do projeto.
 
 Acesso: Abra seu navegador e acesse http://localhost/nome-da-sua-pasta.
 
-#⚠️AVISO DE SEGURANÇA:
+# ⚠️AVISO DE SEGURANÇA:
 
 Este projeto foi desenvolvido para fins educacionais e utiliza um banco de dados com dados fictícios. Não utilize este sistema para armazenar informações reais ou sensíveis.
 
