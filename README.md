@@ -19,15 +19,15 @@ Frontend: HTML5, CSS3 e JavaScript
 
 Ambiente de Desenvolvimento: XAMPP (Apache + MySQL)
 
-![Tela do Cardápio](assets/images/home_page.png)
-![Tela do Cardápio](assets/images/home_page2.png)
-![Tela do Cardápio](assets/images/home_page3.png)
-![Tela de Login](assets/images/login_page.png)
-![Tela de Cadastro](assets/images/login_page.png)
-![Tela de Pagamento](assets/images/pagamento.png)
-![Tela do Pedido confirmado](assets/images/pedido.png)
-![Tela do Carrinho](assets/images/carrinho.png)
-![Painel Administrativo](assets/images/area_adm.png)
+![Tela do Cardápio](assets/prints_proj/home_page.png)
+![Tela do Cardápio](assets/prints_proj/home_page2.png)
+![Tela do Cardápio](assets/prints_proj/home_page3.png)
+![Tela de Login](assets/prints_proj/login_page.png)
+![Tela de Cadastro](assets/prints_proj/login_page.png)
+![Tela de Pagamento](assets/prints_proj/pagamento.png)
+![Tela do Pedido confirmado](assets/prints_proj/pedido.png)
+![Tela do Carrinho](assets/prints_proj/carrinho.png)
+![Painel Administrativo](assets/prints_proj/area_adm.png)
 
 
 💻 Como Rodar este Projeto
