@@ -19,15 +19,15 @@ Frontend: HTML5, CSS3 e JavaScript
 
 Ambiente de Desenvolvimento: XAMPP (Apache + MySQL)
 
-![Tela do Cardápio](assets/prints_proj/home_page.png)
-![Tela do Cardápio](assets/prints_proj/home_page2.png)
-![Tela do Cardápio](assets/prints_proj/home_page3.png)
-![Tela de Login](assets/prints_proj/login_page.png)
-![Tela de Cadastro](assets/prints_proj/login_page.png)
-![Tela de Pagamento](assets/prints_proj/pagamento.png)
-![Tela do Pedido confirmado](assets/prints_proj/pedido.png)
-![Tela do Carrinho](assets/prints_proj/carrinho.png)
-![Painel Administrativo](assets/prints_proj/area_adm.png)
+![Tela do Cardápio](asset/prints_proj/home_page.png)
+![Tela do Cardápio](asset/prints_proj/home_page2.png)
+![Tela do Cardápio](asset/prints_proj/home_page3.png)
+![Tela de Login](asset/prints_proj/login_page.png)
+![Tela de Cadastro](asset/prints_proj/login_page.png)
+![Tela de Pagamento](asset/prints_proj/pagamento.png)
+![Tela do Pedido confirmado](asset/prints_proj/pedido.png)
+![Tela do Carrinho](asset/prints_proj/carrinho.png)
+![Painel Administrativo](asset/prints_proj/area_adm.png)
 
 
 💻 Como Rodar este Projeto
@@ -49,3 +49,13 @@ Inicie os serviços Apache e MySQL no painel do XAMPP.
 Acesse o phpmyadmin e importe o arquivo .sql disponível na pasta do projeto.
 
 Acesso: Abra seu navegador e acesse http://localhost/nome-da-sua-pasta.
+
+#⚠️AVISO DE SEGURANÇA:
+
+Este projeto foi desenvolvido para fins educacionais e utiliza um banco de dados com dados fictícios. Não utilize este sistema para armazenar informações reais ou sensíveis.
+
+Credenciais de Acesso (Administrador):
+
+Usuário: admin@gmail.com
+
+Senha: admin123
